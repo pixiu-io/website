@@ -1,0 +1,21 @@
+{
+  "line-length": false,
+  "ol-prefix": false,
+  "no-inline-html": false,
+  "heading-increment": false,
+  "first-line-heading": false,
+  "no-undefined-references": false,
+  "single-title": false,
+  "no-alt-text": false,
+  "no-emphasis-as-header": false,
+  "fenced-code-language": false,
+  "no-blanks-blockquote": false,
+  "no-bare-urls": false,
+  "code-block-style": false,
+  "no-duplicate-heading": false,
+  "no-trailing-spaces": false,
+  "commands-show-output": false,
+  "no-trailing-punctuation": false,
+  "no-space-in-emphasis": false,
+  "blanks-around-lists": false
+}

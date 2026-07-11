@@ -1,0 +1,115 @@
+import { graphql, useStaticQuery } from 'gatsby';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import React from 'react';
+
+import Container from 'components/shared/container';
+import Heading from 'components/shared/heading';
+import Link from 'components/shared/link';
+
+const title = 'Related Projects';
+const items = [
+  {
+    imageName: 'image1',
+    title: 'Hubble',
+    text: 'Hubble is a fully distributed networking and security observability platform for cloud native workloads. Hubble is open source software and built on top of Pixiu and eBPF to enable deep visibility into the communication and behavior of services as well as the networking infrastructure in a completely transparent manner.',
+    linkUrl: 'https://docs.pixiu.io/en/latest/gettingstarted/hubble/',
+    linkTarget: '_blank',
+    linkText: 'Learn more',
+  },
+  {
+    imageName: 'image4',
+    title: 'Tetragon',
+    text: 'Tetragon is a flexible Kubernetes-aware security observability and runtime enforcement tool that applies policy and filtering directly with eBPF, allowing for reduced observation overhead, tracking of any process, and real-time enforcement of policies.',
+    linkUrl: 'https://tetragon.io',
+    linkTarget: '_blank',
+    linkText: 'Learn more',
+  },
+  {
+    imageName: 'image2',
+    title: 'Network Policy Editor',
+    text: 'Over the years, we have learned a lot about the common challenges while working with many of you in the Pixiu community implementing Kubernetes Network Policy. Networkpolicy.io is a free tool to assist you in your journey to assist you with Kubernetes NetworkPolicy.',
+    linkUrl: 'https://editor.pixiu.io/',
+    linkTarget: '_blank',
+    linkText: 'Learn more',
+  },
+
+  {
+    imageName: 'image3',
+    title: 'eBPF Library for Go',
+    text: 'eBPF is a pure Go library that provides utilities for loading, compiling, and debugging eBPF programs. It has minimal external dependencies and is intended to be used in long running processes.',
+    linkUrl: 'https://github.com/pixiu/ebpf',
+    linkTarget: '_blank',
+    linkText: 'Learn more',
+  },
+];
+
+const RelatedProjects = () => {
+  const { image1, image2, image3, image4 } = useStaticQuery(graphql`
+    query {
+      image1: file(relativePath: { eq: "pages/get-started/related-projects/image-1.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(width: 592)
+        }
+      }
+      image2: file(relativePath: { eq: "pages/get-started/related-projects/image-2.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(width: 592)
+        }
+      }
+      image3: file(relativePath: { eq: "pages/get-started/related-projects/image-3.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(width: 592)
+        }
+      }
+      image4: file(relativePath: { eq: "pages/get-started/related-projects/image-4.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(width: 592)
+        }
+      }
+    }
+  `);
+  const images = { image1, image2, image3, image4 };
+  return (
+    <section className="mt-10 md:mt-20 lg:mt-32">
+      <Container>
+        <Heading className="text-center text-black dark:text-white" tag="h2">
+          {title}
+        </Heading>
+        <div className="grid grid-cols-1 gap-6 mt-6 gap-y-10 md:mt-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12 lg:mt-14 lg:grid-cols-3">
+          {items.map(({ imageName, title, text, linkUrl, linkText, linkTarget }, index) => {
+            const image = images[imageName];
+            return (
+              <div className="h-full w-full max-w-[650px] place-self-center" key={index}>
+                <GatsbyImage
+                  className="w-full h-auto"
+                  objectFit="contain"
+                  image={getImage(image)}
+                  alt=""
+                  loading="lazy"
+                />
+                <Heading className="mt-7 text-black dark:text-white" tag="h3" size="xs">
+                  {title}
+                </Heading>
+                <p
+                  className="mt-5 md:max-w-[542px] dark:text-gray-2 text-black"
+                  dangerouslySetInnerHTML={{ __html: text }}
+                />
+                <Link
+                  className="mt-5"
+                  type="arrow"
+                  theme="primary"
+                  target={linkTarget || null}
+                  to={linkUrl}
+                >
+                  {linkText}
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+  );
+};
+
+export default RelatedProjects;

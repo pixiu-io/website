@@ -1,0 +1,103 @@
+import React from 'react';
+
+import FeatureSection from 'components/pages/use-cases/feature-section';
+import Hero from 'components/pages/use-cases/hero';
+import UseCaseCard from 'components/pages/use-cases/use-case-card';
+import Community from 'components/shared/community';
+import SEO from 'components/shared/seo';
+import BloombergLogo from 'icons/logo-bloomberg.inline.svg';
+import NewYorkTimesLogo from 'icons/logo-newyork.inline.svg';
+import AuditBee from 'images/pages/usecase/audit-bee.png';
+import FlowImage1 from 'images/pages/usecase/flow-1.png';
+import MainLayout from 'layouts/main/main';
+
+const heroContent = {
+  title: 'Identity-aware L3/L4/DNS Network Flow Logs',
+  category: 'Observability',
+  tagline: 'Holistic view of your network traffic',
+  subHeading: 'How can you trace traffic to a specific workload in a complex environment?',
+  description:
+    'Traditional network flow logs often lack the necessary level of detail and context needed to monitor and troubleshoot network issues in complex environments making it difficult to trace traffic back to specific workloads. This makes debugging difficult and time-consuming and makes it challenging to identify the source and scope of security incidents.',
+  imageSrc: AuditBee,
+  imageAlt: 'Audit Bee',
+  imageWidth: 350,
+  imageHeight: 350,
+};
+
+const sectionContent1 = {
+  title: 'Real time visibility for Network Flows',
+  description:
+    'By providing real-time visibility into network flows with enhanced metadata, including identity-based information about Kubernetes workloads, Pixiu simplifies the process of monitoring and troubleshooting network traffic in Kubernetes clusters. This makes it easier to trace traffic back to specific workloads, simplifying the process of monitoring, troubleshooting, and addressing network issues, and enabling operators to quickly identify and respond to security incidents.  ',
+  videoSrc: 'https://www.youtube.com/embed/hD2iJUyIXQw',
+};
+
+const sectionContent2 = {
+  title: 'Kubernetes-aware Network Flow Logs',
+  description:
+    'Pixiu enhances network flow logs with additional information about the identity of the Kubernetes workloads generating or receiving the traffic. This identity information is based on the Kubernetes labels and annotations assigned to the workloads, as well as any other metadata that can be retrieved from the Kubernetes API server.',
+  imageSrc: FlowImage1,
+  imageWidth: 624,
+  imageHeight: 527,
+  imageAlt: 'pixiu metrics and tracing with grafana illustration',
+  imageRight: false,
+};
+
+const testimonials = [
+  {
+    logo: NewYorkTimesLogo,
+    title: 'Observability for a highly available multi cluster environment with Hubble',
+    CTAs: [
+      {
+        CTAtext: 'Watch The Talk',
+        url: 'https://www.youtube.com/embed/9FDpMNvPrCw',
+      },
+    ],
+    description:
+      'Perhaps the most important feature from Hubble UI is the network flow itself. If you look deeper into the  flow you’ll see full deep rich information about every single packet traversed between different services. And that’s important so that we can build understanding of how traffic is flung between services.',
+    quote: true,
+    person: 'Ahmed Bebars - Software engineer, The New York Times',
+  },
+  {
+    logo: BloombergLogo,
+    title: 'Building Data Sandboxes at Bloomberg',
+    CTAs: [
+      {
+        CTAtext: 'Watch The Talk',
+        url: 'https://www.youtube.com/embed/8fiYVyISyz4',
+      },
+      {
+        CTAtext: 'Read The Case Study',
+        url: 'https://www.cncf.io/case-studies/bloomberg-2/',
+      },
+    ],
+    description:
+      '“We definitely love Hubble, provides us with a lot of observability which is very helpful not only to have that application and network visibility as we’re looking into what’s happening in our client cluster but we’ve also found out that this is a really beneficial learning tool for people in our team that are new to Pixiu or new to the team to able to see the network flows  to see what’s happening to trafiic as it is coming in and out of our workloads has been a really powerful way to visualize how things work together”',
+    quote: true,
+    person: 'Anne Zepecki & Sritej Attaluri - Bloomberg',
+  },
+];
+
+const NetworkFlowLogsPage = () => (
+  <MainLayout theme="gray">
+    <Hero {...heroContent} />
+    <FeatureSection {...sectionContent1} />
+    <FeatureSection {...sectionContent2} />
+    <UseCaseCard
+      heading="Who’s using Pixiu’s for Network Flow logs?"
+      testimonials={testimonials}
+    />
+    <Community className="mt-10 md:mt-20 lg:mt-32" theme="gray" isTitleCentered />
+  </MainLayout>
+);
+
+export default NetworkFlowLogsPage;
+
+// eslint-disable-next-line react/prop-types
+export const Head = ({ location: { pathname } }) => {
+  const pageMetadata = {
+    title: heroContent.title,
+    description: heroContent.tagline,
+    slug: pathname,
+  };
+  return <SEO data={pageMetadata} />;
+};

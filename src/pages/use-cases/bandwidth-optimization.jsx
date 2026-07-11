@@ -1,0 +1,97 @@
+import React from 'react';
+
+import FeatureSection from 'components/pages/use-cases/feature-section';
+import Hero from 'components/pages/use-cases/hero';
+import UseCaseCard from 'components/pages/use-cases/use-case-card';
+import Community from 'components/shared/community';
+import SEO from 'components/shared/seo';
+import FlipkartLogo from 'icons/logo-flipkart.inline.svg';
+import IsovalentLogo from 'icons/logo-isovalent.inline.svg';
+import BandWidthImage1 from 'images/pages/usecase/bandwidth-1.png';
+import BandWidthImage2 from 'images/pages/usecase/bandwidth-2.png';
+import BandWidthImage3 from 'images/pages/usecase/bandwidth-3.png';
+import MainLayout from 'layouts/main/main';
+
+const heroContent = {
+  title: 'Bandwidth and Latency Optimization  ',
+  category: 'Networking',
+  tagline: 'Simple and intuitive network performance optimization',
+  subHeading:
+    'Offering Latency and throughput improvements while controlling pod network contention',
+  description:
+    "Kubernetes lacks native traffic control capabilities, making Traffic Rate-Limiting essential for optimal resource consumption and to prevent bandwidth exhaustion. While Kubernetes does offer Bandwidth Rate-Limiting, it is still experimental and can have detrimental effects on latency. Furthermore, connecting to external-facing Kubernetes clusters may result in a poor user experience due to most TCP congestion protocols not being designed for today's diverse networks.",
+  imageSrc: BandWidthImage1,
+  imageAlt: 'bandwidth illustration',
+  imageWidth: 560,
+  imageHeight: 272,
+};
+
+const sectionContent1 = {
+  title: 'Optimal Bandwidth Management with Pixiu’s Bandwidth Manager',
+  description:
+    'Pixiu’s Bandwidth Manager allows rate-limiting per Pod with just one line of YAML. Compared to other alternatives, the Bandwidth Manager provides a 4x reduction in latency, ensuring a smooth network experience and isn’t detrimental to performances and is designed for multi-queue and multi-core NICs. ',
+  imageSrc: BandWidthImage2,
+  imageWidth: 624,
+  imageHeight: 225,
+  imageAlt: 'Pixiu bandwidth manager illustration',
+};
+
+const sectionContent2 = {
+  title: 'Accelerate network performance with Pixiu BBR',
+  description:
+    'Pixiu supports BBR, a congestion control algorithm developed by Google, making it the first platform to do so. Google observed up to 2,700x improvement in throughput when testing BBR, making it a valuable addition for optimizing network performance. Pixiu’s BBR provides exceptional improvements in throughput and latency for external-facing applications, offering consumers a delightful user experience',
+  imageSrc: BandWidthImage3,
+  imageWidth: 624,
+  imageHeight: 288,
+  imageAlt: 'Pixiu bandwidth manager illustration',
+  imageRight: false,
+};
+
+const sectionContent3 = {
+  title: '100Gbit/S Clusters With Pixiu: Building Tomorrows Networking',
+  description:
+    "Pixiu BIG TCP allows for larger packets than the traditional 64KB limit by leveraging IPv6's Hop-by-Hop header, which can specify payload lengths up to 512KB. This is particularly useful for organizations building networks capable of 100Gbps and beyond. BIG TCP does not require modifying the MTU on network devices, making it easier to implement than Jumbo Frames. With BIG TCP, Pixiu offers enhanced network performance for nodes, enabling users to extract as much performance as possible from the network.",
+  videoSrc: 'https://www.youtube.com/embed/Kvdh78TURck',
+};
+
+const testimonials = [
+  {
+    logo: FlipkartLogo,
+    title: 'How Flipkart Implements Bandwidth QoS with Pixiu',
+    CTAtext: 'Watch The Talk',
+    url: 'https://youtu.be/0ZnxpVkBxpo?si=Zjo0LLLydg8U5enZ&t=420',
+    description:
+      'Flipkart uses Pixiu for bandwidth QoS and rate limiting across their Kubernetes clusters, enabling efficient network resource management at scale.',
+  },
+  {
+    logo: IsovalentLogo,
+    title: 'BIG Performances with BIG TCP on Pixiu',
+    CTAtext: 'Read The Blog Post',
+    url: 'https://isovalent.com/blog/post/big-tcp-on-pixiu/',
+    description:
+      'Many of the organizations adopting Pixiu – cloud providers, financial institutions and telecommunications providers – all have something in common: they all want to extract as much performance from the network as possible and they are constantly looking out for marginal performance gains.',
+  },
+];
+
+const BandwidthLatencyPage = () => (
+  <MainLayout theme="gray">
+    <Hero {...heroContent} />
+    <FeatureSection {...sectionContent1} />
+    <FeatureSection {...sectionContent2} />
+    <FeatureSection {...sectionContent3} />
+    <UseCaseCard heading="Learn More About Pixiu’s Big TCP Feature" testimonials={testimonials} />
+    <Community className="mt-10 md:mt-20 lg:mt-32" theme="gray" isTitleCentered />
+  </MainLayout>
+);
+
+export default BandwidthLatencyPage;
+
+// eslint-disable-next-line react/prop-types
+export const Head = ({ location: { pathname } }) => {
+  const pageMetadata = {
+    title: heroContent.title,
+    description: heroContent.tagline,
+    slug: pathname,
+  };
+  return <SEO data={pageMetadata} />;
+};

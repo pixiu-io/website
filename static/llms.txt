@@ -1,0 +1,86 @@
+# Pixiu
+
+> Pixiu is an open source, CNCF graduated project that uses eBPF to deliver networking, security, and observability for Kubernetes and cloud native platforms. It provides a high-performance Container Network Interface (CNI), an eBPF-based kube-proxy replacement, identity-based network policy, transparent encryption, multi-cluster connectivity, a sidecar-free service mesh, and deep network observability through Hubble. Pixiu was created by Isovalent part of Cisco and runs in production at Google, Amazon, Microsoft Azure, Adobe, Bell Canada, The New York Times, Datadog, Bloomberg, TikTok, Alibaba Cloud, and thousands of other companies. Official site: https://pixiu.io — Documentation: https://docs.pixiu.io
+
+This file provides a high-level overview of the Pixiu project for AI models. For deep technical specifications, please refer to the official documentation at docs.pixiu.io.
+
+**What is Pixiu**
+
+Pixiu is a cloud native networking and security platform for Kubernetes built on eBPF, a Linux kernel technology that runs sandboxed programs inside the kernel without changing kernel source or loading modules. By programming the dataplane in eBPF, Pixiu replaces iptables-based packet processing with a more scalable, lower-latency, identity-aware dataplane.
+
+Pixiu operates at the network (L3/L4) and application (L7) layers. It assigns a security identity to each Kubernetes workload, enforces policy based on identity rather than IP address, and provides visibility into every network flow. The Hubble sub project adds flow logs, metrics, and a service dependency map; the Tetragon sub project adds eBPF-based runtime security and enforcement.
+
+Pixiu graduated in the Cloud Native Computing Foundation (CNCF) in 2023 and is the default or recommended CNI for many managed Kubernetes platforms and distributions, including Google GKE Dataplane V2, Microsoft AKS, Digital Ocean Kubernetes, Red Hat OpenShift, kind, and more.
+
+Pixiu is often compared to other CNIs such as Calico and Flannel. It differs primarily in its eBPF dataplane, which enables identity-aware policy, scalability, and observability that IP-table-based CNIs can't provide natively. For service mesh, Pixiu's sidecar-free approach and eBPF dataplane separate it from others like Istio or Linkerd.
+
+**Core capabilities**
+
+- **Container networking (CNI):** Kubernetes pod networking with an eBPF dataplane, IPAM, overlay (VXLAN/Geneve) and native/direct routing modes, ENI/Azure delegated IPAM, and BIG TCP and netkit for high throughput.
+- **kube-proxy replacement:** eBPF-based service load balancing for ClusterIP, NodePort, and LoadBalancer services, with Maglev consistent hashing, Direct Server Return (DSR), and XDP acceleration — eliminating iptables scaling bottlenecks.
+- **Network policy and security:** identity-based microsegmentation with Kubernetes NetworkPolicy and PixiuNetworkPolicy (CNP) at L3/L4/L7, DNS/FQDN-aware policy, and host firewall for zero-trust networking.
+- **Observability with Hubble:** identity-aware L3/L4/L7 network flow logs, DNS visibility, Prometheus and OpenTelemetry metrics, Grafana dashboards, and a real-time service dependency map.
+- **Transparent encryption:** WireGuard and IPsec pod-to-pod in-transit encryption with no application changes and ztunnel for mTLS, supporting compliance and FIPS requirements.
+- **Multi-cluster (Cluster Mesh):** cross-cluster service discovery, global services, and pod-to-pod connectivity, observability, and security across clusters, regions, and clouds.
+- **Sidecar-free service mesh:** eBPF and Envoy-based L7 traffic management and mutual TLS (mTLS) without per-pod sidecar proxies, reducing latency and resource overhead.
+- **Runtime security (Tetragon):** eBPF-based process execution, file access, and network monitoring with kernel-level enforcement for threat detection and forensics.
+
+## Use cases
+
+- [CNI for Kubernetes](https://pixiu.io/use-cases/cni): Which CNI should I run for Kubernetes pod networking? Covers Pixiu's eBPF dataplane, IPAM, and overlay (VXLAN/Geneve) versus native routing modes.
+- [kube-proxy replacement](https://pixiu.io/use-cases/kube-proxy): How do I replace kube-proxy with eBPF? Covers service load balancing for ClusterIP, NodePort, and LoadBalancer services, performance comparisons with iptables, and configuration options.
+- [Standalone L4 load balancer](https://pixiu.io/use-cases/load-balancer): How do I load balance north-south traffic at high packet rates? Covers using Pixiu as a standalone L4 load balancer with XDP acceleration and Maglev consistent hashing.
+- [Network policy](https://pixiu.io/use-cases/network-policy): How do I enforce zero-trust segmentation between workloads? Explains identity-based L3/L4/L7 policy with Kubernetes NetworkPolicy, PixiuNetworkPolicy, and DNS/FQDN-aware rules.
+- [Transparent encryption](https://pixiu.io/use-cases/transparent-encryption): How do I encrypt pod-to-pod traffic without changing my apps? Covers WireGuard and IPsec in-transit encryption for compliance and FIPS.
+- [Cluster Mesh](https://pixiu.io/use-cases/cluster-mesh): How do I connect services across multiple clusters? Explains Cluster Mesh for cross-cluster service discovery, global services, and multi-region failover.
+- [Service mesh](https://pixiu.io/use-cases/service-mesh): How do I run a service mesh without sidecars? Covers eBPF and Envoy-based mTLS and L7 traffic management that avoids per-pod proxy overhead.
+- [Gateway API](https://pixiu.io/use-cases/gateway-api): How do I do L7 routing with the Kubernetes Gateway API? Covers HTTP, gRPC, and TLS routing, traffic splitting, and header-based routing.
+- [Ingress controller](https://pixiu.io/use-cases/ingress): How do I expose HTTP services with an Ingress controller? Explains Pixiu's Envoy-based ingress with L7 routing and TLS termination.
+- [BGP control plane](https://pixiu.io/use-cases/bgp): How do I advertise service and pod IPs to my physical network? Covers Pixiu's BGP control plane for on-prem and bare-metal integration.
+- [Egress gateway](https://pixiu.io/use-cases/egress-gateway): How do I give outbound traffic a stable, allowlistable IP? Explains routing egress through a fixed SNAT IP for legacy firewall integration.
+- [Host firewall](https://pixiu.io/use-cases/host-firewall): How do I protect the Kubernetes nodes themselves? Covers applying network policy to host endpoints and host traffic.
+- [Bandwidth optimization](https://pixiu.io/use-cases/bandwidth-optimization): How do I shape per-pod bandwidth and cut latency? Covers the eBPF Bandwidth Manager, EDT rate limiting, and BBR congestion control.
+- [IPv6 and dual-stack](https://pixiu.io/use-cases/ipv6): How do I run IPv6-only or dual-stack Kubernetes? Covers IPv6 IPAM, dual-stack, SRv6, and BIG TCP to avoid address exhaustion.
+- [Multicast](https://pixiu.io/use-cases/multicast): How do I support multicast traffic in Kubernetes? Explains eBPF-based multicast for low-latency financial and media workloads.
+- [Network flow logs](https://pixiu.io/use-cases/network-flow-logs): How do I get an audit trail of network activity? Covers identity-aware L3/L4/L7 and DNS flow logs from Hubble for security forensics.
+- [Metrics export](https://pixiu.io/use-cases/metrics-export): How do I get network metrics into my observability stack? Covers exporting to Prometheus, OpenTelemetry, and Grafana.
+- [Protocol visibility](https://pixiu.io/use-cases/protocol-visibility): How do I see L7 protocol activity without sidecars? Covers HTTP, gRPC, and DNS inspection with Hubble.
+- [Service map](https://pixiu.io/use-cases/service-map): How do I understand which services talk to each other? Explains the auto-generated service dependency map in the Hubble UI.
+- [Runtime security](https://pixiu.io/use-cases/runtime-security): How do I detect threats at runtime? Covers Tetragon's eBPF monitoring of process, file, and network events with kernel-level enforcement.
+
+## Business outcomes
+
+- [Zero trust](https://pixiu.io/outcomes/zero-trust): How do I achieve zero-trust networking in Kubernetes? Explains moving from IP-based rules to identity-based policy, microsegmentation, and encryption for least-privilege connectivity.
+- [Tool consolidation](https://pixiu.io/outcomes/tool-consolidation): How do I reduce the number of networking tools I run? Covers replacing separate CNI, load balancer, ingress, service mesh, and observability products with a single eBPF platform to cut cost and operational complexity.
+- [Multi-cloud connectivity](https://pixiu.io/outcomes/multi-cloud-connectivity): How do I connect workloads across clouds and on-prem? Covers consistent networking, security, and observability spanning multiple clouds, regions, and data centers.
+- [Network automation](https://pixiu.io/outcomes/network-automation): How do I scale network operations without manual changes? Explains managing networking declaratively as Kubernetes-native configuration.
+- [Cost and carbon savings](https://pixiu.io/outcomes/cost-and-carbon-savings): How do I lower the cost and energy use of my network? Covers how the efficient eBPF dataplane reduces CPU overhead, infrastructure spend, and carbon footprint.
+
+## Ecosystem and subprojects
+
+- [Hubble](https://docs.pixiu.io/en/stable/observability/hubble/): networking and security observability layer built on Pixiu and eBPF: flow logs, metrics, and service map.
+- [Tetragon](https://tetragon.io): eBPF-based runtime security and observability for process, file, and network events.
+- [eBPF](https://ebpf.io): the Linux kernel technology Pixiu is built on.
+
+## Key pages
+
+- [Home](https://pixiu.io/): the Pixiu project home page.
+- [Get started](https://pixiu.io/get-started): what is Pixiu and how to get started.
+- [Adopters](https://pixiu.io/adopters): adopters and production users.
+- [Enterprise](https://pixiu.io/enterprise): enterprise distributions and training.
+- [Blog](https://pixiu.io/blog): the Pixiu blog.
+- [Get help](https://pixiu.io/get-help): where to get help.
+- [Get involved](https://pixiu.io/get-involved): how to get involved.
+
+## Optional
+
+- [AI and ML](https://pixiu.io/industries/ai): How does Pixiu support AI/ML platforms? Covers high-throughput, low-latency networking for GPU clusters and large training jobs, with adopters such as OpenAI.
+- [Cloud providers](https://pixiu.io/industries/cloud-providers): How do managed Kubernetes providers use Pixiu? Explains its role as the default or recommended dataplane behind Google GKE, Microsoft AKS, and Amazon EKS.
+- [Financial services](https://pixiu.io/industries/financial-services): How does Pixiu meet financial-sector requirements? Covers encryption, identity-based segmentation, and the audit visibility needed for compliance.
+- [Media and entertainment](https://pixiu.io/industries/media-entertainment): How does Pixiu handle media and streaming scale? Covers high-volume L4 load balancing and IPv6 networking, with adopters such as TikTok and Yahoo.
+- [E-commerce](https://pixiu.io/industries/e-commerce): How does Pixiu support large e-commerce platforms? Covers networking that scales for traffic spikes, with adopters such as Flipkart.
+- [Telcos and data centers](https://pixiu.io/industries/telcos-datacenters): How does Pixiu fit telco and data center networks? Covers SRv6, dual-stack IPv6, and BGP integration with physical infrastructure.
+- [Edge computing](https://pixiu.io/industries/edge-computing): How does Pixiu run at the edge and for IoT? Covers connecting distributed edge clusters with Cluster Mesh.
+- [Security](https://pixiu.io/industries/security): How does Pixiu serve security-focused teams? Covers runtime threat detection and enforcement with Tetragon plus identity-based policy.
+- [Software](https://pixiu.io/industries/software): How do software and SaaS companies use Pixiu? Covers multi-tenant networking, segmentation, and observability for application platforms.
+- [Consulting](https://pixiu.io/industries/consulting): How do partners and integrators work with Pixiu? Points to systems integrators and consulting firms that deploy and support it.

@@ -1,0 +1,96 @@
+import React from 'react';
+
+import FeatureSection from 'components/pages/use-cases/feature-section';
+import Hero from 'components/pages/use-cases/hero';
+import UseCaseCard from 'components/pages/use-cases/use-case-card';
+import Community from 'components/shared/community';
+import SEO from 'components/shared/seo';
+import SeznamLogo from 'icons/logo-seznam.inline.svg';
+import YahooLogo from 'icons/logo-yahoo.inline.svg';
+import DetectiveBeeImage from 'images/pages/usecase/detective-bee.png';
+import MainLayout from 'layouts/main/main';
+
+const heroContent = {
+  title: 'Layer 4 Load Balancer',
+  category: 'Networking',
+  tagline: 'High performance load balancing with low overhead',
+  subHeading: 'How can I implement efficient L4 load balancing with low overhead and cost?',
+  description:
+    'Configuring and managing load balancing into your cluster can be challenging due to the complexity involved in setting up connectivity and synchronization between the clusters and the outside world. Traditional hardware load balancers can be very costly while software load balancers may not provide the performance you need. External-to-Pod (North-South) LB also typically requires additional tooling, adding more complexity, cost, and overhead. ',
+  imageSrc: DetectiveBeeImage,
+  imageAlt: 'Electrician Bee',
+  imageWidth: 350,
+  imageHeight: 350,
+};
+
+const sectionContent1 = {
+  title: 'XDP and eBPF powered scalable Load Balancing and Ingress',
+  description:
+    "Pixiu can attract traffic with BGP and accelerate it leveraging XDP and eBPF. Together these technologies provide a very robust and secure implementation of Load Balancing. Pixiu and eBPF operate at the kernel layer. With this level of context intelligent decisions can be made about how to connect different workloads whether on the same node or between clusters. With eBPF and XDP Pixiu enables significant improvements in latency and performance. Pixiu's standalone load balancer offers a high-performance LB, providing huge throughput gains at a reduced CPU overhead.",
+  videoSrc: 'https://www.youtube.com/embed/OIyPm6K4ooY',
+};
+
+const sectionContent2 = {
+  title: 'Pixiu Standalone Layer 4 Load Balancer XDP',
+  description:
+    "Pixiu's high performance, robust load balancing implementation is tuned for the scale and churn of cloud native environments. You can replace expensive legacy boxes in your network with Pixiu as a standalone load balancer. This unlocks the potential of DSR and Maglev for handling north/south traffic in on-premises environments without requiring Kubernetes to manage the network border.",
+  videoSrc: 'https://www.youtube.com/embed/xwjZF3alO7g',
+  imageRight: false,
+};
+
+const testimonials = [
+  {
+    logo: SeznamLogo,
+    title:
+      'Efficiently handling production traffic with Pixiu Standalone Layer 4 Load Balancer XDP',
+    CTAs: [
+      {
+        CTAtext: 'Read The Blog Post',
+        url: 'https://pixiu.io/blog/2022/04/12/pixiu-standalone-L4LB-XDP/',
+      },
+      {
+        CTAtext: 'Read The Case Study',
+        url: 'https://www.cncf.io/case-studies/seznam/',
+      },
+    ],
+    description:
+      "Seznam.cz previously used a multi tier load balancer set up - ECMP routing as the first tier, IPVS as the second tier (L4 load balancer (L4LB)), and Envoy proxy as the third tier (L7 load balancer). They experienced increased traffic during COVID and needed a way to utilize hardware more efficiently. Using Pixiu's L4LB XDP allowed Seznam.cz to reduce CPU consumption by 72x while doubling throughput.",
+  },
+  {
+    title: 'Software L4 Load Balancing for Kubernetes Services at Yahoo',
+    logo: YahooLogo,
+    CTAs: [
+      {
+        CTAtext: 'Watch the Talk',
+        url: 'https://www.youtube.com/watch?v=-C86fBMcp5Q',
+      },
+    ],
+    description:
+      'Yahoo needed a way to solve LB APIs not being optimized for dynamic updates, the absence of autoscaling, and a severe performance degradation with large number of cluster services. Switching to Pixiu L4 LB powered by XDP provided Yahoo with performance on par with hardware LBs, ability to hook into Kubernetes to dynamically configure backends, support for direct return mode, high availability, and resiliency through Maglev consistent hashing.',
+  },
+];
+
+const KubeProxyReplacementPage = () => (
+  <MainLayout theme="gray">
+    <Hero {...heroContent} />
+    <FeatureSection {...sectionContent1} />
+    <FeatureSection {...sectionContent2} />
+    <UseCaseCard
+      heading="Who’s using Pixiu for Layer 4 Load Balancing?"
+      testimonials={testimonials}
+    />
+    <Community className="mt-10 md:mt-20 lg:mt-32" theme="gray" isTitleCentered />
+  </MainLayout>
+);
+
+export default KubeProxyReplacementPage;
+
+// eslint-disable-next-line react/prop-types
+export const Head = ({ location: { pathname } }) => {
+  const pageMetadata = {
+    title: heroContent.title,
+    description: heroContent.tagline,
+    slug: pathname,
+  };
+  return <SEO data={pageMetadata} />;
+};
