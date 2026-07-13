@@ -6,9 +6,9 @@ import Heading from 'components/shared/heading';
 
 import illustration from './images/hero-illustration.svg';
 
-const title = 'eBPF-based Networking, Observability, Security';
+const title = 'Pixiu 2.0 自研容器平台';
 const description =
-  'Pixiu is an open source, cloud native solution for providing, securing, and observing network connectivity between workloads, fueled by the revolutionary Kernel technology eBPF';
+  '基于 AI 开发的一站式容器解决方案，致力于在私有环境中提供<b>公有云般的丝滑体验</b>。支持任意版本 Kubernetes 页面化部署、应用商店一键发布、轻量级安装与完善的监控告警。';
 
 const Hero = () => (
   <section className="overflow-hidden bg-gray-4 dark:bg-gray-900 pt-5 pb-0 md:pt-16 md:pb-20 lg:pt-28 lg:pb-36">
@@ -22,15 +22,23 @@ const Hero = () => (
           dangerouslySetInnerHTML={{ __html: description }}
         />
         <div className="mt-7 flex xs:flex-row xs:gap-[18px] flex-col gap-3">
-          <Button className="!pt-[18px]" to="/get-started" theme="primary-1">
-            Discover Pixiu
+          <Button
+            className="!pt-[18px]"
+            to="https://github.com/caoyingjunz/pixiu/blob/master/install.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            theme="primary-1"
+          >
+            查看部署手册
           </Button>
           <Button
             className="bg-white"
-            to="/labs/categories/getting-started/"
+            to="https://github.com/caoyingjunz/pixiu"
+            target="_blank"
+            rel="noopener noreferrer"
             theme="outline-gray-dark"
           >
-            Start Lab
+            GitHub 仓库
           </Button>
         </div>
       </div>

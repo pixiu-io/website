@@ -1,0 +1,26 @@
+# 依赖与构建缓存（镜像内会重新安装/生成）
+node_modules
+.cache
+public
+dist
+dist-ssr
+
+# 版本控制与编辑器
+.git
+.gitignore
+.vscode
+.idea
+.cursorrules
+
+# 密钥与环境文件（绝不进镜像）
+.env
+.env.*
+*.local
+
+# 日志
+*.log
+dev.log
+
+# 系统文件
+.DS_Store
+Thumbs.db

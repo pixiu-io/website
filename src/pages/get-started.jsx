@@ -1,68 +1,89 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-import Architecture from 'components/pages/get-started/architecture';
-import Hero from 'components/pages/get-started/hero/hero';
-import Faq from 'components/pages/get-help/faq/faq';
-import News from 'components/pages/get-started/news';
-import RelatedProjects from 'components/pages/get-started/related-projects';
-import Highlights from 'components/pages/home/highlights';
-import CNCFBanner from 'components/shared/cncf-banner';
-import Community from 'components/shared/community';
-import HandsOn from 'components/shared/hands-on';
+import Button from 'components/shared/button';
+import Container from 'components/shared/container';
+import Heading from 'components/shared/heading';
 import SEO from 'components/shared/seo';
-import UserCommunity from 'components/shared/user-community';
-import illustration from 'images/pages/get-started/hero/illustration.svg';
 import MainLayout from 'layouts/main';
-import caseStudiesData from 'utils/case-studies-data';
 import { learn as seo } from 'utils/seo-metadata';
 
 const hero = {
-  title: 'What is Pixiu?',
+  title: '部署 Pixiu 2.0',
   description:
-    '<p>Pixiu is an open source project to provide networking, security, and observability for cloud native environments such as Kubernetes clusters and other container orchestration platforms.</p><p>At the foundation of Pixiu is a new Linux kernel technology called eBPF, which enables the dynamic insertion of powerful security, visibility, and networking control logic into the Linux kernel. eBPF is used to provide high-performance networking, multi-cluster and multi-cloud capabilities, advanced load balancing, transparent encryption, extensive network security capabilities, transparent observability, and much more.</p>',
-  illustration,
+    'Pixiu 2.0 提供轻量级、页面化的私有化容器平台。一个容器干遍所有功能，支持 HTTPS 与 HTTP，支持任意版本 Kubernetes 页面化部署。',
 };
 
-const datadog = {
-  iconName: 'datadog',
-  text: 'How Datadog uses Pixiu',
-  links: [
-    {
-      linkText: 'Watch video',
-      linkUrl: 'https://www.youtube.com/watch?v=6mTVuZUHLBg&ab_channel=eBPFSummit',
-      linkTarget: '_blank',
-    },
-  ],
-};
+const steps = [
+  {
+    title: '准备 Kubernetes 集群',
+    desc: '任意版本的 K8s 集群均可，页面化部署，无需繁琐命令。',
+  },
+  {
+    title: '按部署手册安装',
+    desc: '参考官方部署手册完成私有化安装，一个容器即可运行全部功能。',
+  },
+  {
+    title: '页面化部署应用',
+    desc: '打开控制台，点一点即可完成应用部署、日志查询与监控告警。',
+  },
+];
 
-const { google, bell, gitlab, aws, sky, adobe, capitalOne } = caseStudiesData;
-
-const userCommunity = {
-  title: 'User Community',
-  items: [aws, google, bell, sky, adobe, capitalOne, datadog, gitlab],
-};
-
-const LearnPage = () => (
-  <MainLayout pageMetadata={seo}>
-    <Hero className="pt-5 pb-10 md:pt-16 md:pb-20 lg:pb-[138px]" {...hero} />
-    <Highlights />
-    <Architecture />
-    <HandsOn />
-    <CNCFBanner />
-    <Faq />
-    <RelatedProjects />
-    <UserCommunity
-      className="py-10 mt-10 md:py-20 lg:py-32 md:mt-20 lg:mt-32"
-      isTitleCentered
-      {...userCommunity}
-    />
-    <News />
-    <Community className="mt-10 md:mt-20 lg:mt-32" isTitleCentered />
+const GetStarted = () => (
+  <MainLayout>
+    <section className="pt-10 pb-10 md:pt-16 md:pb-20 lg:pt-28 lg:pb-32 bg-gray-4 dark:bg-gray-900">
+      <Container>
+        <div className="mx-auto max-w-3xl text-center">
+          <Heading className="dark:text-gray-3 text-black" tag="h1" size="lg">
+            {hero.title}
+          </Heading>
+          <p className="mt-5 text-base text-gray-1 dark:text-gray-2 md:text-lg">
+            {hero.description}
+          </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 xs:flex-row">
+            <Button
+              to="https://github.com/caoyingjunz/pixiu/blob/master/install.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              theme="primary-1"
+            >
+              查看部署手册
+            </Button>
+            <Button
+              to="https://github.com/caoyingjunz/pixiu"
+              target="_blank"
+              rel="noopener noreferrer"
+              theme="outline-gray-dark"
+              className="bg-white"
+            >
+              GitHub 仓库
+            </Button>
+          </div>
+        </div>
+      </Container>
+    </section>
+    <section className="py-10 md:py-20 lg:py-28 bg-white dark:bg-[#0f1d3e]">
+      <Container>
+        <Heading className="text-center dark:text-gray-3 text-black" tag="h2">
+          部署步骤
+        </Heading>
+        <ul className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-3">
+          {steps.map(({ title, desc }) => (
+            <li
+              key={title}
+              className="rounded-2xl border border-gray-3 bg-white p-6 shadow-card dark:bg-gray-2"
+            >
+              <h3 className="text-lg font-bold text-black dark:text-white">{title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-gray-1 dark:text-gray-2">{desc}</p>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </section>
   </MainLayout>
 );
 
-export default LearnPage;
+export default GetStarted;
 
 export const Head = ({ location: { pathname } }) => {
   const pageMetadata = { ...seo, slug: pathname };

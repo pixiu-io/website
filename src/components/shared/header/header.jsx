@@ -6,7 +6,7 @@ import Button from 'components/shared/button';
 import Search from 'components/shared/search';
 import useDarkMode from 'hooks/use-dark-mode';
 import useToggleTheme from 'hooks/use-toggle-theme';
-import SlackIcon from 'icons/slack.inline.svg';
+import GithubLogo from 'icons/github.inline.svg';
 import DarkLogo from 'images/logo.inline.svg';
 import LightLogo from 'images/white-logo.inline.svg';
 import algoliaQueries from 'utils/algolia-queries';
@@ -61,20 +61,20 @@ const Header = ({ withSearch, isMobileMenuOpen, handleCloseClick, navigation, ha
                       'ml-4 items-center bg-white dark:bg-gray-800 leading-none lg:ml-0 xl:ml-2 2xl:ml-4',
                       withSearch ? 'hidden xl:inline-flex' : 'inline-flex'
                     )}
-                    to="https://communityinviter.com/apps/pixiu/pixiu-and-ebpf-slack"
+                    to="https://github.com/caoyingjunz/pixiu"
                     target="_blank"
                     rel="noopener noreferrer"
                     theme="outline-gray"
                     size="xs"
                   >
-                    <SlackIcon className="w-4 h-4 lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
+                    <GithubLogo className="w-4 h-4 lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
                     <span
                       className={classNames(
                         'hidden lg:ml-1 dark:text-gray-2 text-black',
                         withSearch ? '2xl:block' : '2xl:block'
                       )}
                     >
-                      Join Slack
+                      GitHub
                     </span>
                   </Button>
                 </div>

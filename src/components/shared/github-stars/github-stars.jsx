@@ -6,6 +6,16 @@ import GithubLogo from 'icons/github.inline.svg';
 
 import Link from '../link';
 
+// 把从 GitHub 拿到的 star 数字格式化展示：
+// - 小于 1000 直接显示原始整数（如 591）
+// - 大于等于 1000 显示为 k 形式（如 1.5k）
+const formatStars = (value) => {
+  const count = parseInt(`${value}`.replace(/,/g, ''), 10);
+  if (Number.isNaN(count)) return value;
+  if (count < 1000) return `${count}`;
+  return `${(count / 1000).toFixed(1).replace(/\.0$/, '')}k`;
+};
+
 const GithubStars = ({ className }) => {
   const {
     githubStars: { githubStars },
@@ -23,7 +33,7 @@ const GithubStars = ({ className }) => {
         type="text"
         theme="black-primary"
         className="flex h-8 items-center rounded border border-gray-3 text-sm font-bold"
-        to="https://github.com/pixiu/pixiu"
+        to="https://github.com/caoyingjunz/pixiu"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -32,7 +42,7 @@ const GithubStars = ({ className }) => {
           <span className="dark:text-gray-2 text-black">Stars</span>
         </div>
         <div className="px-2 dark:text-gray-2 text-black lg:px-1 xs:px-3">
-          <span>{`${(parseInt(githubStars.replace(/,/g, ''), 10) / 1000).toFixed(1)}k`}</span>
+          <span>{formatStars(githubStars)}</span>
         </div>
       </Link>
     </div>

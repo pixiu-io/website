@@ -7,7 +7,8 @@ import MainLayout from 'layouts/main';
 const links = [
   {
     title: 'Read the last news',
-    to: '/blog/',
+    to: 'https://docs.cloud.pixiuio.com/',
+    target: '_blank',
   },
   {
     title: 'Start learning with labs',
@@ -40,12 +41,14 @@ const NotFoundPage = () => (
           If you&apos;re unsure what to explore, check out our recommendations.
         </p>
         <div className="flex flex-col items-center mt-8 space-y-6 sm:space-y-0 sm:space-x-6 sm:flex-row sm:mt-8">
-          {links.map(({ title, to }, index) => (
+          {links.map(({ title, to, target }, index) => (
             <Link
               className="!text-15 font-semibold !normal-case !tracking-tight [&>svg]:mt-0.5"
               theme="primary"
               type="arrow"
               to={to}
+              target={target || null}
+              rel={target ? 'noopener noreferrer' : null}
               key={index}
             >
               {title}

@@ -1,0 +1,12 @@
+services:
+  pixiu-web:
+    build:
+      context: .
+      # 把这里换成你的正式域名，canonical/sitemap 才会正确
+      args:
+        SITE_URL: https://your-domain.com
+    image: pixiu-web:latest
+    container_name: pixiu-web
+    ports:
+      - "80:80"
+    restart: unless-stopped

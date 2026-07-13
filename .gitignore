@@ -11,8 +11,15 @@ dist-ssr
 
 .gitcommits
 
-# tsc 编译产物，不应提交进 git
-src/**/*.js
-src/**/*.js.map
+# tsc 编译产物（如有 TypeScript 项目再启用）
+# src/**/*.js
+# src/**/*.js.map
 .env.development
 .env
+
+# Gatsby 构建产物与缓存
+.cache
+public
+
+# 日志
+*.log

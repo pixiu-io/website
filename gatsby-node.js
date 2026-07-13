@@ -557,17 +557,21 @@ async function getHubspotEmails({ actions: { createNode }, createContentDigest }
 }
 
 async function getGithubStars({ actions: { createNode }, createContentDigest, cache }) {
+  // 真实仓库地址：https://github.com/caoyingjunz/pixiu
+  // 兜底值 591 为 2026-07-13 通过 GitHub API 实际获取的 star 数，
+  // 即使构建环境无法访问 api.github.com，也会展示这个真实数值而非 0。
+  const FALLBACK_STARS = '591';
   let stars;
   try {
     // Set expiration time as 24 hours in milliseconds
     const expirationTime = 24 * 60 * 60 * 1000;
-    const cacheKey = `stars-pixiu`;
+    const cacheKey = `stars-pixiu-caoyingjunz`;
     const cacheStarsData = await cache.get(cacheKey);
     // Use cache if it is not expired
     if (cacheStarsData && cacheStarsData.created > Date.now() - expirationTime) {
       stars = cacheStarsData.stars;
     } else {
-      const response = await fetch(`https://api.github.com/repos/pixiu/pixiu`);
+      const response = await fetch(`https://api.github.com/repos/caoyingjunz/pixiu`);
       const { stargazers_count } = await response.json();
 
       if (typeof stargazers_count !== 'number') {
@@ -583,8 +587,11 @@ async function getGithubStars({ actions: { createNode }, createContentDigest, ca
       });
     }
   } catch (error) {
-    console.warn('Warning: Failed to fetch GitHub stars, using fallback value. Error:', error.message);
-    stars = '0';
+    console.warn(
+      'Warning: Failed to fetch GitHub stars, using fallback value. Error:',
+      error.message
+    );
+    stars = FALLBACK_STARS;
   }
 
   createNode({
@@ -620,6 +627,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
     type MdxFrontmatter {
       author: String
+      ogImageUrl: String
     }
   `;
   createTypes(typeDefs);

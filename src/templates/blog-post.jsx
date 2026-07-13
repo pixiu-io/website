@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { graphql } from 'gatsby';
 import 'prismjs/themes/prism.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Content from 'components/pages/blog-post/content';
 import PopularPosts from 'components/shared/popular-posts';
@@ -17,6 +17,11 @@ const BlogPostPage = (props) => {
   const {
     frontmatter: { path, title, date, tags, ogSummary },
   } = postData;
+
+  // 整页重定向到外部博客地址
+  useEffect(() => {
+    window.location.replace('https://docs.cloud.pixiuio.com/');
+  }, []);
 
   return (
     <MainLayout headerWithSearch>

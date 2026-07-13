@@ -208,8 +208,7 @@ const plugins = [
             }
           `,
           output: '/blog/rss.xml',
-          title:
-            'Pixiu - The latest articles covering eBPF-based Networking, Observability, and Security',
+          title: 'Pixiu 2.0 自研容器平台 - 最新文章',
         },
         {
           serialize: ({ query: { allHubspotEmail } }) =>
@@ -234,7 +233,7 @@ const plugins = [
           }
           `,
           output: '/newsletter/rss.xml',
-          title: 'Pixiu Newsletter - bi-weekly wrap up of all things eBPF and Pixiu',
+          title: 'Pixiu 2.0 自研容器平台 - 双周通讯',
         },
       ],
     },
@@ -276,15 +275,16 @@ if (process.env.CONTEXT === 'production') {
 module.exports = {
   trailingSlash: 'always',
   siteMetadata: {
-    siteTitle: 'Pixiu - Cloud Native, eBPF-based Networking, Observability, and Security', // <title>
-    siteDescription: 'Cloud Native, eBPF-based Networking, Observability, and Security',
+    siteTitle: 'Pixiu 2.0 自研容器平台 - 私有环境的公有云丝滑体验', // <title>
+    siteDescription:
+      'Pixiu 2.0 是基于 AI 开发的一站式容器平台，致力于在私有环境中提供公有云般的丝滑体验。支持任意版本 Kubernetes 页面化部署、应用商店一键发布、轻量级安装与完善的监控告警。',
     // pathPrefix: "",
     siteImage: '/images/social-preview.jpg',
-    siteLanguage: 'en',
+    siteLanguage: 'zh-CN',
     siteUrl: process.env.GATSBY_DEFAULT_SITE_URL,
     /* author */
-    authorName: 'pixiu',
-    authorTwitterAccount: '@pixiuproject',
+    authorName: 'Pixiu 2.0 团队',
+    authorTwitterAccount: '',
   },
   plugins,
 };
