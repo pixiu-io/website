@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { graphql } from 'gatsby';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import FeaturedPosts from 'components/pages/blog/featured-posts';
 import PostsBoard from 'components/pages/blog/posts-board';
@@ -47,6 +47,11 @@ const BlogPage = (props) => {
     location: { pathname },
   } = props;
   const isCategoryPage = pathname.includes('categories');
+
+  // 整页重定向到外部博客地址
+  useEffect(() => {
+    window.location.replace('https://docs.cloud.pixiuio.com/');
+  }, []);
 
   return (
     <MainLayout headerWithSearch>

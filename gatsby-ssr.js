@@ -5,5 +5,5 @@ const { wrapRootElement } = require('./src/utils/wrap-root-element');
 exports.wrapRootElement = wrapRootElement;
 
 exports.onRenderBody = ({ setHtmlAttributes }) => {
-  setHtmlAttributes({ lang: 'en', prefix: 'og: http://ogp.me/ns#' });
+  setHtmlAttributes({ lang: 'zh-CN', prefix: 'og: http://ogp.me/ns#' });
 };

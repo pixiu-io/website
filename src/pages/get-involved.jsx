@@ -1,129 +1,78 @@
 /* eslint-disable react/prop-types */
-import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 
-import CalendarIntegration from 'components/pages/get-involved/calendar-integration';
-import Guidelines from 'components/pages/get-involved/guidelines';
-import ReportBugs from 'components/pages/get-involved/report-bugs';
-import Subscribe from 'components/pages/get-involved/subscribe';
-import Cards from 'components/shared/cards';
-import HandsOn from 'components/shared/hands-on';
-import HeroWithImage from 'components/shared/hero-with-image';
+import Button from 'components/shared/button';
+import Container from 'components/shared/container';
+import Heading from 'components/shared/heading';
+import Link from 'components/shared/link';
 import SEO from 'components/shared/seo';
-import decor1 from 'images/pages/get-involved/hero/decor-1.svg';
-import decor2 from 'images/pages/get-involved/hero/decor-2.svg';
 import MainLayout from 'layouts/main';
 import { getInvolved as seo } from 'utils/seo-metadata';
 
-const cardItems1 = [
+const repo = 'https://github.com/caoyingjunz/pixiu';
+
+const channels = [
   {
-    iconName: 'slack',
-    title: 'Slack',
-    description: 'For live conversation and quick questions, join the Pixiu Slack workspace.',
-    buttonText: 'Join slack workspace',
-    buttonUrl: 'https://communityinviter.com/apps/pixiu/pixiu-and-ebpf-slack',
-    buttonTarget: '_blank',
+    title: 'GitHub',
+    desc: '在 GitHub 上 Star、Fork 或提交 Issue，参与 Pixiu 2.0 的开发。',
+    href: repo,
   },
   {
-    iconName: 'bluesky',
-    title: 'Bluesky',
-    description: 'Stay updated with the latest from the Pixiu project on Bluesky.',
-    buttonText: 'Follow on Bluesky',
-    buttonUrl: 'https://bsky.app/profile/pixiu.io',
-    buttonTarget: '_blank',
+    title: '部署手册',
+    desc: '按官方部署手册私有化安装，快速体验完整能力。',
+    href: `${repo}/blob/master/install.md`,
   },
   {
-    iconName: 'newsletter',
-    title: 'Newsletter',
-    description: 'Keep up with the latest news from the Pixiu and eBPF communities.',
-    buttonText: 'Subscribe',
-    buttonUrl: '/newsletter',
-  },
-  {
-    iconName: 'youtube',
-    title: 'YouTube',
-    description: 'Watch the videos from the Pixiu and eBPF Communities.',
-    buttonText: 'Watch on youtube',
-    buttonUrl: 'https://www.youtube.com/c/eBPFPixiuCommunity/',
-    buttonTarget: '_blank',
+    title: '技术指导',
+    desc: '加入社区，我们会提供一对一的技术指导与交流。',
+    href: repo,
   },
 ];
 
-const cardItems2 = {
-  title: 'Develop and contribute',
-  items: [
-    {
-      iconName: 'github',
-      title: 'GitHub',
-      description:
-        'Want to report a bug or ask for a feature? Issues can be found in the <a href="https://github.com/pixiu/pixiu/issues" target="_blank" rel="noopener noreferrer">GitHub issue tracker</a>. If you want to report a bug or a new feature please file the issue according to the <a href="https://github.com/pixiu/pixiu/issues/new/choose" target="_blank" rel="noopener noreferrer">GitHub template</a>.',
-    },
-    {
-      iconName: 'devstats',
-      title: 'Devstats',
-      description: 'Check the project activity on Devstats to see how fast we are moving.',
-      buttonText: 'See project activity on Devstats',
-      buttonUrl: 'https://pixiu.devstats.cncf.io/',
-      buttonTarget: '_blank',
-    },
-    {
-      iconName: 'conduct',
-      title: 'Code of Conduct',
-      description:
-        'To make Pixiu a welcoming and harassment-free experience for everyone, we follow our Code of Conduct.',
-      buttonText: 'Read code of conduct',
-      buttonUrl: 'https://github.com/pixiu/pixiu/blob/master/CODE_OF_CONDUCT.md',
-      buttonTarget: '_blank',
-    },
-  ],
-};
-
-const GetInvolved = () => {
-  const { heroImage } = useStaticQuery(graphql`
-    query {
-      heroImage: file(relativePath: { eq: "pages/get-involved/hero/hero-image.png" }) {
-        childImageSharp {
-          gatsbyImageData(width: 521, quality: 95)
-        }
-      }
-    }
-  `);
-  const hero = {
-    title: 'Join the Pixiu community',
-    description:
-      "Pixiu is an open source project that anyone in the community can use, improve, and enjoy. We'd love you to join us! Here's a few ways to find out what's happening and get involved.",
-    heroImage,
-    decor1: {
-      src: decor1,
-      className: 'absolute top-[5.3%] left-[32.5%] w-[27%] max-w-none',
-    },
-    decor2: {
-      src: decor2,
-      className: 'absolute top-[-5.4%] left-[-7.2%] w-[113.8%] max-w-none',
-    },
-  };
-  return (
-    <MainLayout theme="gray" pageMetadata={seo}>
-      <HeroWithImage
-        className="pt-5 pb-10 md:pt-10 lg:py-16"
-        imgWrapperClassName="mr-0 xl:mr-8 lg:!justify-self-center"
-        {...hero}
-      />
-      <Cards
-        className="pt-4 pb-10 md:pb-20 md:pt-16 lg:pt-[72px] lg:pb-28"
-        items={cardItems1}
-        buttonType="link"
-        cardSize="sm"
-      />
-      <Guidelines />
-      <Cards className="mt-16 md:mt-20 lg:mt-32" {...cardItems2} buttonType="link" />
-      <CalendarIntegration />
-      <ReportBugs />
-      <HandsOn />
-      <Subscribe />
-    </MainLayout>
-  );
-};
+const GetInvolved = () => (
+  <MainLayout>
+    <section className="pt-10 pb-10 md:pt-16 md:pb-20 lg:pt-28 lg:pb-32 bg-gray-4 dark:bg-gray-900">
+      <Container>
+        <div className="mx-auto max-w-3xl text-center">
+          <Heading className="dark:text-gray-3 text-black" tag="h1" size="lg">
+            加入 Pixiu 2.0 社区
+          </Heading>
+          <p className="mt-5 text-base text-gray-1 dark:text-gray-2 md:text-lg">
+            期待你的一键三连（Star + Fork + Follow）！无论你是使用者还是贡献者，都欢迎加入我们。
+          </p>
+          <div className="mt-8">
+            <Button to={repo} target="_blank" rel="noopener noreferrer" theme="primary-1">
+              前往 GitHub 一键三连
+            </Button>
+          </div>
+        </div>
+      </Container>
+    </section>
+    <section className="py-10 md:py-20 lg:py-28 bg-white dark:bg-[#0f1d3e]">
+      <Container>
+        <Heading className="text-center dark:text-gray-3 text-black" tag="h2">
+          参与方式
+        </Heading>
+        <ul className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-3">
+          {channels.map(({ title, desc, href }) => (
+            <li key={title}>
+              <Link
+                to={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                type="text"
+                className="block rounded-2xl border border-gray-3 bg-white p-6 text-center shadow-card transition-colors hover:border-blue-500 dark:bg-gray-2"
+              >
+                <h3 className="text-xl font-bold text-black dark:text-white">{title}</h3>
+                <p className="mt-3 text-sm text-gray-1 dark:text-gray-2">{desc}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </section>
+  </MainLayout>
+);
 
 export default GetInvolved;
 
